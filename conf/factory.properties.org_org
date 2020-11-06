@@ -1,0 +1,196 @@
+#####################################################################################
+# KebiMail Factory 환경설정 파일
+# file name : conf/factory.properties
+#####################################################################################
+#
+# Configuration File 제약사항
+#
+# 1. key = value_string 으로 기술된다.
+# 2. Comment 는 '#'으로 시작되면 되나, 문자열 중간에 있는 '#'기호는 Comment로
+#    인식하지 않는다.
+# 3. '=' 대신 ' '(공백)을 사용해도 된다.
+#    (즉 첫번째 나오는 공백이 key와 vlaue string를 나누는 구실도 한다.
+# 4. 3번의 이유로 인하여 key에는 중간에 공백이 허용되지 않는다.
+# 5. 반면, value string에는 공백이 허용된다.
+# 6. value string를 사용할 때 한글이 지원된다. 그러나 key는 한글지원이 안된다.
+# 7. 두 줄 이상을 사용하려면 라인의 끝에 '/' 문자를 사용하면 된다.
+#    '/'문자 자체가 필요할 땐 '/' 대신 '//'을 사용하라.
+# 8. 7번의 이유로 인하여 Windows 환경에서 디렉토리 구분은 '/'가 아니라 '//' 이다.
+#    그러나 Unix처럼 '/'을 사용해도 된다.
+#    예) com.kebi.jdf.logger.dir = C:/temp/log   <--- 틀림
+#        com.kebi.jdf.logger.dir = C://temp//log <--- 맞음
+#        com.kebi.jdf.logger.dir = C:/temp/log   <--- 맞음
+#
+####################################################################################
+
+###### KebiMail System Info(Local) ################
+#com.nara.kebimail.version = KM5.0
+#com.nara.mail.host = mofat.go.kr
+#com.nara.mail.system = postmaster@mofat.go.kr
+#com.nara.mail.queue = D:/maildata/spool/naramail/mqueue
+#com.nara.jdf.user.homedir = D:/maildata
+
+###### KebiMail System Info(Server) ################
+com.nara.kebimail.version = LKM5.0
+com.nara.mail.host = kdic.or.kr
+com.nara.mail.admin = webmaster@kdic.or.kr
+com.nara.mail.system = postmaster@kdic.or.kr
+com.nara.mail.queue = /var/spool/naramail/mqueue
+com.nara.jdf.user.homedir = /maildata
+
+###### Database 설정 ###################
+com.nara.jdf.tool.generator.db.type = Oracle
+com.nara.jdf.tool.generator.db.driver = oracle.jdbc.driver.OracleDriver
+com.nara.jdf.tool.generator.db.url = jdbc.url=jdbc:oracle:thin:@192.168.151.191:1521:kebi
+com.nara.jdf.tool.generator.db.user = kebimail
+com.nara.jdf.tool.generator.db.password = kebimail
+
+###### 기능별 설정 #####################
+### 예약메일발송 #######################
+# 예약메일 발송 기능 사용여부
+reservation.use = true
+# 예약메일 발송 주기(분 단위)
+reservation.interval = 5
+
+### 일정알림 ###########################
+# 일정알림 기능 사용여부
+schedule.use = false
+# 일정알림 주기(분 단위)
+schedule.interval = 5
+
+##### 사용자 Disk 용량 갱신 ############
+# 사용자 Disk 용량 갱신 기능 사용여부
+update.userused.use = true
+# 사용자 Disk 용량 갱신 주기(분 단위)
+update.userused.interval = 10
+
+##### 용량 초과 알림 메일 발송 여부 ####
+# 용량 초과 알림 메일 발송 기능 사용여부
+mailforquotafull.use = true
+# 용량 초과 알림 메일 주기(분 단위, 예: 1440 = 24시간)
+mailforquotafull.interval = 1440
+# 용량 초과 기준치(% 단위)
+mailforquotafull.size = 80
+# 용량 초과 발송 메세지
+mailforquotafull.msg.title = [메일관리]메일 용량 관리(할당된 메일 용량  도달 시점) 안내입니다.
+mailforquotafull.msg.contents = \n안녕하십니까? 메일 시스템에서 안내 드립니다.\n\n귀하의 할당된 메일 사용량 <b>#set_size#MB</b> 중 <b>#used_size#MB</b>를 사용하여 사용자님의 디스크 용량이 <b>#used_quota#%</b>를 사용중입니다.\n\n이후 원활한 메일 수신을 위하여 메일함을 필히 정리해 주시길 바랍니다.
+
+##### 퇴직자 알림 메일 발송 여부 ####
+# 용량 초과 알림 메일 발송 기능 사용여부
+mailforexpired.use = true
+# 용량 초과 알림 메일 주기(분 단위, 예: 1440 = 24시간)
+mailforexpired.interval = 1440
+# 용량 초과 발송 메세지
+mailforexpired.msg.title = [메일관리]메일 만료(퇴직자) 안내입니다.
+mailforexpired.msg.contents = \n안녕하십니까? 메일 시스템에서 안내 드립니다.\n\n귀하(#user_id#)의 만료날짜가 <b>#user_expired#</b> 입니다. 앞으로 3개월 후 사용이 중지됩니다.\n\n자세한 사항은 관리자에게 문의하시기 바랍니다.
+
+##### 메일 송신 쿼터 갱신 ##############
+# 메일 송신 쿼터 갱신 기능 사용여부
+update.quota.use = false
+# 메일 송신 쿼터 갱신 주기(일 단위)
+update.quota.interval = 1
+
+##### 휴면 사용자 정지 처리 ############
+# 휴면 사용자 정지 처리 기능 사용여부
+pause.user.use = true
+# 휴면 사용자 정지 처리 주기(일 단위)
+pause.user.interval = 1
+
+##### 수신확인 로그 삭제 ###############
+# 수신확인 로그 삭제 기능 사용여부
+clear.reconf.use = false
+# 수신확인 로그 삭제 주기(일 단위, 예: 1 = 1일에 한번)
+clear.reconf.interval = 1
+# 수신확인 로그 삭제 기준일(일 단위, 예: 30 ; 기능 작동 일로부터 30일이전 데이터 삭제)
+clear.reconf.date = 30
+
+##### 게시판 열람 로그 삭제 ############
+# 게시판 열람 로그 삭제 기능 사용여부
+clear.bbslog.use = false
+# 게시판 열람 로그 삭제 주기(일 단위, 예: 1 = 1일에 한번)
+clear.bbslog.interval = 1
+# 게시판 열람 로그 삭제 기준일(일 단위, 예: 30 ; 기능 작동 일로부터 30일이전 데이터 삭제)
+clear.bbslog.date = 30
+
+##### 광고메일 정리 ####################
+# 광고메일 정리 기능 사용여부
+clear.spam.use = false
+# 광고메일 정리 주기(일 단위)
+clear.spam.interval = 1
+
+
+##### 휴지통 정리 ######################
+# 휴지통 정리 기능 사용여부
+clear.waste.use = false
+# 휴지통 정리 주기(일 단위)
+clear.waste.interval = 1
+
+##### 첨부파일(임시) 디렉토리 정리 ######
+# 첨부파일(임시) 디렉토리 정리 사용여부
+clear.tempattache.use = true
+# 첨부파일(임시) 정리 주기(일 단위)
+clear.tempattache.interval = 1
+
+##### 유저 첨부파일(임시) 디렉토리 정리 ######
+# 유저 첨부파일(임시) 디렉토리 정리 사용여부
+clear.usertempattache.use = true
+# 유저 첨부파일(임시) 정리 주기(일 단위)
+clear.usertempattache.interval = 1
+# 작업단위별 처리 건수
+clear.usertempattache.process.count = 1000
+
+##### 인증서 유효기간 알림 ######
+# 인증서 유효기간 체크 사용여부
+certification.notice.use = false
+# 인증서 유효기간 체크 주기(일 단위)
+certification.notice.interval = 1
+# 인증서 만료기한 체크 기준일
+certification.notice.term = 300
+# 인증서 만료기한 발송 메세지
+certification.notice.msg.title = [인증서 기한만료]인증서 유효기간 만료 안내입니다.
+certification.notice.msg.contents = \n안녕하십니까? 메일 시스템에서 안내 드립니다.\n\n#OS# 에서 발급된 #CERTI_TYPE# 인증서가 <b>#DATETO#</b> 부로  만료됩니다.\n\n만료일 이전에 신규 인증서를 등록하여 주시기 바랍니다.
+
+###### 쓰레기 메일 정리 ########
+# 쓰레기 메일 정리 사용여부
+trash.mail.cleaner.use = false
+# 쓰레기 메일 정리 실행주기 (시간 단위)
+trash.mail.interval.hour = 24
+# 쓰레기 메일 파일 삭제여부 
+trash.mail.file.delete = false
+# 쓰레기 메일 파일 삭제하지 않는 경우, 백업디렉토리 절대경로
+trash.mail.backup.dir = /maildata/trash_backup
+
+### 새메일 체크 설정 ###########################
+# 새메일 체크 사용여부
+#new.mailcheck.use = true
+# 새메일 체크주기(분 단위)
+#new.mailcheck.interval = 10
+#작업단위별 처리 건수
+#new.mailcheck.process.count = 1000
+
+###### 로그 설정 #######################
+# Logger Configuration Information
+# NOTE: 이것을 수정하고 반영되기를 원하면 JVM를 새로 기동해야 한다.
+com.nara.jdf.logger.dir = /usr/local/kebi/kebimail_factory/log
+
+com.nara.jdf.logger.driver = com.nara.jdf.DefaultLoggerWriter
+com.nara.jdf.logger.autoflush = true
+
+# Logging Trace Level ( SYS, ERR, WARN, INFO, DEBUG, DBWRAP )
+# 개발자의 Code에 Logger.xxx.println()에 의해 Log를 남기는 부분에서
+# 각 flag가 true일 경우만 실질적인 Log로 남게 된다.
+com.nara.jdf.logger.sys.trace = true
+com.nara.jdf.logger.err.trace = true
+com.nara.jdf.logger.warn.trace = true
+com.nara.jdf.logger.info.trace = true
+com.nara.jdf.logger.debug.trace = true
+com.nara.jdf.logger.query.trace = true
+com.nara.jdf.logger.reg.trace = false
+com.nara.jdf.logger.unreg.trace = false
+com.nara.jdf.logger.dbwrap.trace = true
+
+# 통상 SELECT성 SQL문장은 Log로서의 가치가 INSERT, UPDATE, DELETE보다
+# 중요도가 떨어진다. JDFStatement.executeQuery()에서도 Log를 남기려면
+# 이 flag를 true로 하면 된다.
+com.nara.jdf.logger.dbwrap.select.trace = false
+########################################
